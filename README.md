@@ -46,3 +46,30 @@ pod install --repo-update
 cd ..
 npx react-native run-ios
 ```
+
+#### Android
+
+1. Download file `google-services.json` then put it in `android/app/google-services.json`. Need to check app id, namespace of file `MainActivity.kt` and `MainApplication.kt`
+2. Update file `android/build.gradle`:
+```
+dependencies {
+    ...
+    classpath 'com.google.gms:google-services:4.4.2'
+}
+```
+3. Update file `android/app/build.gradle`:
+```
+apply plugin: 'com.google.gms.google-services'
+///
+dependencies {
+  implementation platform('com.google.firebase:firebase-bom:33.12.0')
+  implementation 'com.google.firebase:firebase-analytics'
+
+  ...
+}
+```
+4. Run these commands:
+```
+cd android && ./gradlew clean && cd ..
+npm run android
+```

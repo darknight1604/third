@@ -1,4 +1,4 @@
-package com.third
+package com.dk.third
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

@@ -1,0 +1,142 @@
+{
+  "project_info": {
+    "project_number": "1086200060655",
+    "project_id": "dani-2c38f",
+    "storage_bucket": "dani-2c38f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086200060655:android:a3757332c0e144e874991a",
+        "android_client_info": {
+          "package_name": "com.dani.alpha.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1086200060655-k4s219l40659ra4a77dkhjpgtdgkiou5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dani.alpha.dev",
+            "certificate_hash": "5f762b94fbc1288b1ae57ad1cef17e3f0480c0fd"
+          }
+        },
+        {
+          "client_id": "1086200060655-ll0a296bp7dale2udmrp9dir5vql9p7a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dani.alpha.dev",
+            "certificate_hash": "f46c7fc666a8c2e30814df31b0cba42a6db084b0"
+          }
+        },
+        {
+          "client_id": "1086200060655-q25ku6gc8uj40t9f0rkhg62tol7u5vg4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dani.alpha.dev",
+            "certificate_hash": "b2bbf94b257405e04ee480705efcb147d053f1d1"
+          }
+        },
+        {
+          "client_id": "1086200060655-ht6oqt4l7voqkokl1c0tjp57m735bs9u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVmTCzwhEDWtMrc7b9WUlc_eEfhf9aJHc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1086200060655-79gumo6hftumg2s03vk61enn83q4haes.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1086200060655-3volise9rkh4riqg2j0i56rqgjptfalg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dk.third"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086200060655:android:1b5f24187f126b9b74991a",
+        "android_client_info": {
+          "package_name": "com.dani.host.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1086200060655-ht6oqt4l7voqkokl1c0tjp57m735bs9u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVmTCzwhEDWtMrc7b9WUlc_eEfhf9aJHc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1086200060655-79gumo6hftumg2s03vk61enn83q4haes.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1086200060655-3volise9rkh4riqg2j0i56rqgjptfalg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dk.third"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086200060655:android:c6031e83cbcdc6ab74991a",
+        "android_client_info": {
+          "package_name": "com.dk.third"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1086200060655-ht6oqt4l7voqkokl1c0tjp57m735bs9u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVmTCzwhEDWtMrc7b9WUlc_eEfhf9aJHc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1086200060655-79gumo6hftumg2s03vk61enn83q4haes.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1086200060655-3volise9rkh4riqg2j0i56rqgjptfalg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dk.third"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
