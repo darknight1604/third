@@ -1,4 +1,4 @@
 export const ROUTE_NAME = {
-  home: 'home',
-  userProfile: 'user-profile',
-};
+  HOME: 'Home',
+  USER_PROFILE: 'UserProfile',
+} as const;
