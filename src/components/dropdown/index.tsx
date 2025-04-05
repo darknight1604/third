@@ -19,6 +19,7 @@ const Dropdown = ({label, value, onPress}: IDropdownProps) => {
           value={value}
           editable={false}
           mode="outlined"
+          autoFocus={false}
           outlineStyle={{...styles.outlineStyle, borderRadius: theme.roundness}}
           right={<TextInput.Icon icon="chevron-down" />}
         />

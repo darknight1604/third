@@ -4,7 +4,7 @@ import Dropdown from '../../components/dropdown';
 import ThemedText from '../../components/themed-text';
 import {ROUTE_NAME} from '../../constants';
 import {HomeParam} from '../../routes/Navigation';
-import {CustomDatePicker} from '../../components';
+import {CustomDatePicker, ThemedTextInput} from '../../components';
 import BottomSheet, {BottomSheetMethods} from '@devvie/bottom-sheet';
 import {useRef} from 'react';
 import {Text, View} from 'react-native';
@@ -24,6 +24,7 @@ const Home = ({navigation}: HomeParam) => {
         onPress={() => sheetRef.current?.open()}
       />
       <CustomDatePicker />
+      <ThemedTextInput label="hello" inputMode="numeric" />
       <FloatingAction showBackground={false} onPressMain={onPressFab} />
       <BottomSheet ref={sheetRef}>
         <View>
