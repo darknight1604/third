@@ -1,5 +1,6 @@
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {FloatingAction} from 'react-native-floating-action';
+import BaseView from '../../components/base-view';
+import ThemedText from '../../components/themed-text';
 import {ROUTE_NAME} from '../../constants';
 import {HomeParam} from '../../routes/Navigation';
 
@@ -9,18 +10,10 @@ const Home = ({navigation}: HomeParam) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.container}>
-        <Text>Home Screen 1</Text>
-        <FloatingAction showBackground={false} onPressMain={onPressFab} />
-      </View>
-    </SafeAreaView>
+    <BaseView>
+      <ThemedText>Home Screen 1</ThemedText>
+      <FloatingAction showBackground={false} onPressMain={onPressFab} />
+    </BaseView>
   );
 };
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-});
 export default Home;
