@@ -1,8 +1,10 @@
 import {configureFonts, MD3Theme} from 'react-native-paper';
 
+const roundness = 6;
+
 const lightTheme: MD3Theme = {
   isV3: true,
-  roundness: 4,
+  roundness: roundness,
   fonts: configureFonts(),
   animation: {
     scale: 1.0,
@@ -55,7 +57,7 @@ const lightTheme: MD3Theme = {
 
 const darkTheme: MD3Theme = {
   isV3: true,
-  roundness: 4,
+  roundness: roundness,
   fonts: configureFonts(),
   animation: {
     scale: 1.0,

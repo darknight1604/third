@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useState} from 'react';
 import DatePicker from 'react-native-date-picker';
-import {TextInput} from 'react-native-paper';
+import {TextInput, useTheme} from 'react-native-paper';
 import {formatDate} from '../../utils/dateTimeUtil';
 import {TouchableWithoutFeedback, View} from 'react-native';
 
@@ -12,6 +12,7 @@ interface ICustomDatePickerProps {
 const CustomDatePicker = ({onConfirm}: ICustomDatePickerProps) => {
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
+  const theme = useTheme();
 
   const onPressTextField = () => {
     setOpen(true);
@@ -26,6 +27,7 @@ const CustomDatePicker = ({onConfirm}: ICustomDatePickerProps) => {
             value={formatDate(date)}
             editable={false}
             mode="outlined"
+            outlineStyle={{borderRadius: theme.roundness}}
           />
         </View>
       </TouchableWithoutFeedback>
