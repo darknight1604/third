@@ -26,6 +26,7 @@ const CameraPicker = () => {
 
   const onDeletePhotoFile = () => {
     deleteFile(photoFile?.path);
+    setPhotoFile(undefined);
   };
 
   useEffect(() => {
