@@ -6,7 +6,10 @@ module.exports = {
       {
         root: ['./'],
         alias: {
+          '@third': './src',
           '@components': './src/components',
+          '@utils': './src/utils',
+          '@localizations': './src/localizations',
         },
       },
     ],
