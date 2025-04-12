@@ -1,10 +1,11 @@
 import {SafeAreaView, Text, View} from 'react-native';
+import {locales} from '../../localizations/locale';
 
 const CreateNoteScreen = () => {
   return (
     <SafeAreaView>
       <View>
-        <Text>Create note screen</Text>
+        <Text>{locales.createNote}</Text>
       </View>
     </SafeAreaView>
   );
