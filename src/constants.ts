@@ -8,3 +8,7 @@ export const ROUTE_NAME = {
 export const DATE_TIME_FORMAT = {
   FORMAT1: 'YYYY-MM-DD HH:mm:ss',
 };
+
+export const DIMENSION = {
+  COMPONENT_GAP: 4,
+};

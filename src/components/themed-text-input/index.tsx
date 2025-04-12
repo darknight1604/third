@@ -1,9 +1,5 @@
-import {View} from 'react-native';
-import {Text, TextInput, TextInputProps, useTheme} from 'react-native-paper';
-import {styles} from './styles';
-import {useMemo} from 'react';
-import {TextStyle} from 'react-native';
-import {StyleProp} from 'react-native';
+import WrapperInput from '@components/wrapper-input';
+import {TextInput, TextInputProps, useTheme} from 'react-native-paper';
 
 interface IThemedTextInputProps extends TextInputProps {
   isRequired?: boolean;
@@ -20,16 +16,13 @@ const ThemedTextInput = ({
   ...rest
 }: IThemedTextInputProps) => {
   const theme = useTheme();
-  const errorStyle: StyleProp<TextStyle> = useMemo(() => {
-    return {...styles.error, color: theme.colors.error};
-  }, [theme.colors.error]);
 
   return (
-    <View style={styles.container}>
-      <Text>
-        {label}
-        {isRequired && <Text style={errorStyle}>*</Text>}
-      </Text>
+    <WrapperInput
+      label={label}
+      isRequired={isRequired}
+      error={error}
+      errorMsg={errorMsg}>
       <TextInput
         label={undefined}
         value={value}
@@ -41,8 +34,7 @@ const ThemedTextInput = ({
         }}
         {...rest}
       />
-      {error && errorMsg && <Text style={errorStyle}>{errorMsg}</Text>}
-    </View>
+    </WrapperInput>
   );
 };
 

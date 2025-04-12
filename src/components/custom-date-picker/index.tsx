@@ -1,15 +1,26 @@
 import * as React from 'react';
 import {useState} from 'react';
+import {TouchableWithoutFeedback, View} from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import {TextInput, useTheme} from 'react-native-paper';
 import {formatDate} from '../../utils/dateTimeUtil';
-import {TouchableWithoutFeedback, View} from 'react-native';
+import WrapperInput from '@components/wrapper-input';
 
 interface ICustomDatePickerProps {
+  isRequired?: boolean;
   onConfirm?: (selected: Date) => void;
+  errorMsg?: string;
+  label: string;
+  error?: boolean;
 }
 
-const CustomDatePicker = ({onConfirm}: ICustomDatePickerProps) => {
+const CustomDatePicker = ({
+  onConfirm,
+  isRequired,
+  errorMsg,
+  label,
+  error,
+}: ICustomDatePickerProps) => {
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
   const theme = useTheme();
@@ -19,11 +30,14 @@ const CustomDatePicker = ({onConfirm}: ICustomDatePickerProps) => {
   };
 
   return (
-    <>
+    <WrapperInput
+      label={label}
+      isRequired={isRequired}
+      error={error}
+      errorMsg={errorMsg}>
       <TouchableWithoutFeedback onPress={onPressTextField}>
         <View pointerEvents="box-only">
           <TextInput
-            label="Date"
             value={formatDate(date)}
             editable={false}
             mode="outlined"
@@ -44,7 +58,7 @@ const CustomDatePicker = ({onConfirm}: ICustomDatePickerProps) => {
           setOpen(false);
         }}
       />
-    </>
+    </WrapperInput>
   );
 };
 
