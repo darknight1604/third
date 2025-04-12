@@ -1,5 +1,6 @@
 import WrapperInput from '@components/wrapper-input';
 import {TextInput, TextInputProps, useTheme} from 'react-native-paper';
+import {styles} from './styles';
 
 interface IThemedTextInputProps extends TextInputProps {
   isRequired?: boolean;
@@ -38,4 +39,8 @@ const ThemedTextInput = ({
   );
 };
 
-export default ThemedTextInput;
+const ThemedTextAreaInput = ({...rest}: IThemedTextInputProps) => {
+  return <ThemedTextInput {...rest} style={styles.textArea} multiline />;
+};
+
+export default {ThemedTextInput, ThemedTextAreaInput};

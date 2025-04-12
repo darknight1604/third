@@ -1,42 +1,45 @@
 import BaseView from '@components/base-view';
 import CustomDatePicker from '@components/custom-date-picker';
 import ThemedText from '@components/themed-text';
-import ThemedTextInput from '@components/themed-text-input';
+import {ThemedTextAreaInput, ThemedTextInput} from '@third/components';
+import {locales} from '@third/localizations/locale';
+import {formatDate} from '@third/utils/dateTimeUtil';
 import {Formik} from 'formik';
+import React, {useCallback} from 'react';
 import {View} from 'react-native';
 import {Button} from 'react-native-paper';
-import {formatDate} from '../../utils/dateTimeUtil';
+import {styles} from './styles';
 
 interface FormData {
   note?: string;
+  value?: string;
   createdDate?: string;
 }
 
 const CreateNoteScreen = () => {
   const initialFormData: FormData = {
     note: '',
+    value: '',
     createdDate: formatDate(new Date()),
   };
   const onSubmit = (values: FormData) => {
     console.log(values);
   };
 
+  const onValidate = useCallback((values: FormData) => {
+    const errors: FormData = {};
+    if (!values.value) {
+      errors.value = locales.requiredField;
+    }
+    return errors;
+  }, []);
+
   return (
     <BaseView>
       <Formik
         initialValues={initialFormData}
         onSubmit={onSubmit}
-        // validate={values => {
-        //   const errors = {};
-        //   if (!values.email) {
-        //     errors.email = 'Required';
-        //   } else if (
-        //     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-        //   ) {
-        //     errors.email = 'Invalid email address';
-        //   }
-        //   return errors;
-        // }}
+        validate={onValidate}
         // onSubmit={(values, {setSubmitting}) => {}}
       >
         {({
@@ -48,17 +51,27 @@ const CreateNoteScreen = () => {
           handleSubmit,
           // isSubmitting,
         }) => (
-          <View>
-            <CustomDatePicker label="Created Date" name="createdDate" />
+          <View style={styles.container}>
+            <CustomDatePicker label={locales.createDate} name="createdDate" />
             <ThemedTextInput
-              label={'Note'}
+              label={locales.valueInput}
+              error={!!errors.value}
+              errorMsg={errors.value}
+              onChangeText={handleChange('value')}
+              value={values.value}
+              placeholder={locales.valueInputPlaceholder}
+              isRequired
+            />
+            <ThemedTextAreaInput
+              label={locales.note}
               error={!!errors.note}
               errorMsg={errors.note}
               onChangeText={handleChange('note')}
               value={values.note}
+              placeholder={locales.note}
             />
             <Button onPress={() => handleSubmit()}>
-              <ThemedText>Hit me</ThemedText>
+              <ThemedText>{locales.create}</ThemedText>
             </Button>
           </View>
         )}

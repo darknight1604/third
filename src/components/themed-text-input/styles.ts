@@ -6,4 +6,5 @@ export const styles = StyleSheet.create({
     gap: DIMENSION.COMPONENT_GAP,
   },
   error: {},
+  textArea: {height: 100},
 });
