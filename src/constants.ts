@@ -4,3 +4,7 @@ export const ROUTE_NAME = {
   CREATE_NOTE: 'CreateNote',
   CAMERA_VIEW: 'CameraView',
 } as const;
+
+export const DATE_TIME_FORMAT = {
+  FORMAT1: 'YYYY-MM-DD HH:mm:ss',
+};
