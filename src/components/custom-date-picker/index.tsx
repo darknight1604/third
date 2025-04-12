@@ -64,6 +64,7 @@ const CustomDatePicker = ({
             editable={false}
             mode="outlined"
             outlineStyle={{borderRadius: theme.roundness}}
+            right={<TextInput.Icon icon="calendar" />}
           />
         </View>
       </TouchableWithoutFeedback>

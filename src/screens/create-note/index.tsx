@@ -7,7 +7,7 @@ import {formatDate} from '@third/utils/dateTimeUtil';
 import {Formik} from 'formik';
 import React, {useCallback} from 'react';
 import {View} from 'react-native';
-import {Button} from 'react-native-paper';
+import {Button, TextInput} from 'react-native-paper';
 import {styles} from './styles';
 
 interface FormData {
@@ -61,6 +61,8 @@ const CreateNoteScreen = () => {
               value={values.value}
               placeholder={locales.valueInputPlaceholder}
               isRequired
+              keyboardType="numeric"
+              right={<TextInput.Icon icon="chart-line-variant" />}
             />
             <ThemedTextAreaInput
               label={locales.note}
@@ -69,6 +71,7 @@ const CreateNoteScreen = () => {
               onChangeText={handleChange('note')}
               value={values.note}
               placeholder={locales.note}
+              right={<TextInput.Icon icon="book-open-variant" />}
             />
             <Button onPress={() => handleSubmit()}>
               <ThemedText>{locales.create}</ThemedText>
