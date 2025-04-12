@@ -3,6 +3,9 @@ import CustomDatePicker from '@components/custom-date-picker';
 import ThemedText from '@components/themed-text';
 import {ThemedTextAreaInput, ThemedTextInput} from '@third/components';
 import {locales} from '@third/localizations/locale';
+import CreateNoteRequest from '@third/models/note';
+import {navigationRef} from '@third/routes/Navigation';
+import {createNote} from '@third/services/noteService';
 import {formatDate} from '@third/utils/dateTimeUtil';
 import {Formik} from 'formik';
 import React, {useCallback} from 'react';
@@ -10,24 +13,20 @@ import {View} from 'react-native';
 import {Button, TextInput} from 'react-native-paper';
 import {styles} from './styles';
 
-interface FormData {
-  note?: string;
-  value?: string;
-  createdDate?: string;
-}
-
 const CreateNoteScreen = () => {
-  const initialFormData: FormData = {
+  const initialFormData: CreateNoteRequest = {
     note: '',
     value: '',
     createdDate: formatDate(new Date()),
   };
-  const onSubmit = (values: FormData) => {
-    console.log(values);
+  const onSubmit = (values: CreateNoteRequest) => {
+    createNote(values, () => {
+      navigationRef.goBack();
+    });
   };
 
-  const onValidate = useCallback((values: FormData) => {
-    const errors: FormData = {};
+  const onValidate = useCallback((values: CreateNoteRequest) => {
+    const errors: CreateNoteRequest = {};
     if (!values.value) {
       errors.value = locales.requiredField;
     }

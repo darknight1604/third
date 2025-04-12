@@ -9,6 +9,8 @@ import {
 } from 'react-native-paper';
 import {navigationRef} from '../../routes/Navigation';
 import {fontConfig} from '../../fonts';
+import {GlobalSnackbar} from '../global-snackbar';
+import {globalSnackbarRef} from '../global-snackbar/GlobalSnackbarService';
 
 interface IProvidersProps {
   children: ReactNode;
@@ -27,7 +29,10 @@ const Providers = ({children}: IProvidersProps) => {
 
   return (
     <PaperProvider theme={paperTheme}>
-      <NavigationContainer ref={navigationRef}>{children}</NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
+        {children}
+        <GlobalSnackbar ref={globalSnackbarRef} />
+      </NavigationContainer>
     </PaperProvider>
   );
 };
