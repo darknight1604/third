@@ -1,7 +1,6 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {ReactNode, useMemo} from 'react';
 import {useColorScheme} from 'react-native';
-import {darkTheme, lightTheme} from '../../theme';
 import {
   configureFonts,
   MD3LightTheme as DefaultTheme,
@@ -11,6 +10,7 @@ import {navigationRef} from '../../routes/Navigation';
 import {fontConfig} from '../../fonts';
 import {GlobalSnackbar} from '../global-snackbar';
 import {globalSnackbarRef} from '../global-snackbar/GlobalSnackbarService';
+import {darkTheme, lightTheme} from '@third/theme';
 
 interface IProvidersProps {
   children: ReactNode;

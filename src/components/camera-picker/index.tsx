@@ -6,27 +6,35 @@ import {
   useCameraDevice,
   useCameraPermission,
 } from 'react-native-vision-camera';
-import {styles} from './styles';
-import {navigate} from '../../routes/Navigation';
 import {ROUTE_NAME} from '../../constants';
+import {navigate} from '../../routes/Navigation';
 import {deleteFile} from '../../utils/fileSystemUtil';
+import {styles} from './styles';
+import {useTheme} from 'react-native-paper';
 
-const CameraPicker = () => {
+interface ICameraPickerProps {
+  onTakePicture?: (photo: PhotoFile | undefined) => void;
+  value?: string;
+}
+
+const CameraPicker = ({onTakePicture, value}: ICameraPickerProps) => {
+  const {colors} = useTheme();
   const device = useCameraDevice('back');
   const {hasPermission, requestPermission} = useCameraPermission();
-  const [photoFile, setPhotoFile] = useState<PhotoFile | undefined>(undefined);
+  const [path, setPath] = useState<string | undefined>(value);
 
   const openCameraView = async () => {
     navigate(ROUTE_NAME.CAMERA_VIEW, {onPost: onPost});
   };
 
   const onPost = (photoFileValue: PhotoFile | undefined) => {
-    setPhotoFile(photoFileValue);
+    setPath(photoFileValue?.path);
+    onTakePicture?.(photoFileValue);
   };
 
   const onDeletePhotoFile = () => {
-    deleteFile(photoFile?.path);
-    setPhotoFile(undefined);
+    deleteFile(path);
+    setPath(undefined);
   };
 
   useEffect(() => {
@@ -35,13 +43,11 @@ const CameraPicker = () => {
     }
     requestPermission();
   }, [hasPermission, requestPermission]);
-  if (photoFile) {
+
+  if (path) {
     return (
-      <View style={styles.thumbnail}>
-        <Image
-          source={{uri: 'file://' + photoFile.path}}
-          style={styles.photoFile}
-        />
+      <View style={[styles.thumbnail, {borderColor: colors.outline}]}>
+        <Image source={{uri: 'file://' + path}} style={styles.photoFile} />
         <View style={styles.deletePhoto}>
           <MaterialCommunityIcons
             name="window-close"
@@ -55,7 +61,7 @@ const CameraPicker = () => {
   }
   return (
     <TouchableWithoutFeedback onPress={openCameraView}>
-      <View style={styles.container}>
+      <View style={[styles.container, {borderColor: colors.outline}]}>
         <MaterialCommunityIcons
           name={device ? 'camera' : 'camera-off'}
           size={32}

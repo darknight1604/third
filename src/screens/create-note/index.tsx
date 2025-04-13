@@ -1,7 +1,11 @@
 import BaseView from '@components/base-view';
 import CustomDatePicker from '@components/custom-date-picker';
 import ThemedText from '@components/themed-text';
-import {ThemedTextAreaInput, ThemedTextInput} from '@third/components';
+import {
+  TakePictureInput,
+  ThemedTextAreaInput,
+  ThemedTextInput,
+} from '@third/components';
 import {locales} from '@third/localizations/locale';
 import CreateNoteRequest from '@third/models/note';
 import {navigationRef} from '@third/routes/Navigation';
@@ -17,6 +21,7 @@ const CreateNoteScreen = () => {
   const initialFormData: CreateNoteRequest = {
     note: '',
     value: '',
+    imageUrl: '',
     createdDate: formatDate(new Date()),
   };
   const onSubmit = (values: CreateNoteRequest) => {
@@ -72,6 +77,7 @@ const CreateNoteScreen = () => {
               placeholder={locales.note}
               right={<TextInput.Icon icon="book-open-variant" />}
             />
+            <TakePictureInput label="Upload" name="imageUrl" />
             <Button onPress={() => handleSubmit()}>
               <ThemedText>{locales.create}</ThemedText>
             </Button>

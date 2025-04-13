@@ -1,6 +1,7 @@
 import {configureFonts, MD3Theme} from 'react-native-paper';
+import {DIMENSION} from './constants';
 
-const roundness = 6;
+const roundness = DIMENSION.BORDER_RADIUS;
 
 const lightTheme: MD3Theme = {
   isV3: true,

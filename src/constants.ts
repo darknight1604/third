@@ -11,4 +11,5 @@ export const DATE_TIME_FORMAT = {
 
 export const DIMENSION = {
   COMPONENT_GAP: 4,
+  BORDER_RADIUS: 8,
 };

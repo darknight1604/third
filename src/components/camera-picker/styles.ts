@@ -1,13 +1,13 @@
+import {DIMENSION} from '@third/constants';
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
-    width: 75,
-    height: 75,
+    width: 100,
+    height: 100,
     borderWidth: 1,
-    borderColor: 'gray',
     borderStyle: 'dotted', // <-- this is the magic
-    borderRadius: 8, // optional: rounded corners
+    borderRadius: DIMENSION.BORDER_RADIUS, // optional: rounded corners
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -18,5 +18,11 @@ export const styles = StyleSheet.create({
     right: 4,
     zIndex: 1,
   },
-  thumbnail: {width: 100, height: 130},
+  thumbnail: {
+    width: 100,
+    height: 100,
+    borderRadius: DIMENSION.BORDER_RADIUS,
+    backgroundColor: '#f5f5f5',
+    borderWidth: 0.5,
+  },
 });
