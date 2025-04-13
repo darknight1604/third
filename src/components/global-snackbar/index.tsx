@@ -25,7 +25,7 @@ export const GlobalSnackbar = forwardRef<GlobalSnackbarRefType>(
       <Snackbar
         visible={visible}
         onDismiss={onDismissSnackBar}
-        duration={1500}
+        duration={3000}
         action={{
           label: 'Close',
           onPress: () => {

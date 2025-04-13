@@ -6,18 +6,26 @@ import {
   ThemedTextAreaInput,
   ThemedTextInput,
 } from '@third/components';
+import {INITIAL_ROUTE_NAME, ROUTE_NAME} from '@third/constants';
 import {locales} from '@third/localizations/locale';
 import CreateNoteRequest from '@third/models/note';
-import {navigationRef} from '@third/routes/Navigation';
-import {createNote} from '@third/services/noteService';
+// import {createNote} from '@third/services/noteService';
 import {formatDate} from '@third/utils/dateTimeUtil';
 import {Formik} from 'formik';
 import React, {useCallback} from 'react';
 import {View} from 'react-native';
 import {Button, TextInput} from 'react-native-paper';
 import {styles} from './styles';
+import {RootStackParamList} from '@third/routes/Navigation';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {createNote} from '@third/services/noteService';
 
-const CreateNoteScreen = () => {
+type CreateNoteScreenParam = NativeStackScreenProps<
+  RootStackParamList,
+  typeof ROUTE_NAME.CREATE_NOTE
+>;
+
+const CreateNoteScreen = ({navigation}: CreateNoteScreenParam) => {
   const initialFormData: CreateNoteRequest = {
     note: '',
     value: '',
@@ -25,8 +33,12 @@ const CreateNoteScreen = () => {
     createdDate: formatDate(new Date()),
   };
   const onSubmit = (values: CreateNoteRequest) => {
-    createNote(values, () => {
-      navigationRef.goBack();
+    navigation.navigate(ROUTE_NAME.LOADING, {
+      onPost: () => {
+        createNote(values, () => {
+          navigation.navigate(INITIAL_ROUTE_NAME);
+        });
+      },
     });
   };
 

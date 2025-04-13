@@ -11,3 +11,4 @@ export {default as CameraPicker} from './camera-picker';
 export {default as TextInputLabel} from './text-input-label';
 export {default as WrapperInput} from './wrapper-input';
 export {default as TakePictureInput} from './take-picture-input';
+export {default as EmptyHeader} from './empty-header';

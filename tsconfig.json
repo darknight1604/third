@@ -15,6 +15,9 @@
       "@localizations/*": [
         "src/utils/*"
       ],
+      "@lotties/*": [
+        "src/assets/lotties/*"
+      ],
     }
   }
 }

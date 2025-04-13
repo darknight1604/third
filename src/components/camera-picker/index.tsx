@@ -7,10 +7,10 @@ import {
   useCameraPermission,
 } from 'react-native-vision-camera';
 import {ROUTE_NAME} from '../../constants';
-import {navigate} from '../../routes/Navigation';
 import {deleteFile} from '../../utils/fileSystemUtil';
 import {styles} from './styles';
 import {useTheme} from 'react-native-paper';
+import {navigate} from '@third/routes/Navigation';
 
 interface ICameraPickerProps {
   onTakePicture?: (photo: PhotoFile | undefined) => void;
