@@ -5,7 +5,7 @@ const storagePath = '/third/dev/images';
 export const uploadImage = async (
   imagePath: string,
   onPost: (publicUrl?: string, refPath?: string) => void,
-) => uploadFile('file://' + imagePath, onPost);
+) => uploadFile(imagePath, onPost);
 
 const uploadFile = async (
   uri: string,
