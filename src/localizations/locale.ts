@@ -17,5 +17,6 @@ export const locales = new LocalizedStrings({
     create: 'Tạo',
     valueInput: 'Chỉ số',
     requiredField: 'Đây là trường bắt buộc',
+    valueInputPlaceholder: 'Nhập giá trị',
   },
 });

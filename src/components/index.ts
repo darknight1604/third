@@ -12,3 +12,4 @@ export {default as TextInputLabel} from './text-input-label';
 export {default as WrapperInput} from './wrapper-input';
 export {default as TakePictureInput} from './take-picture-input';
 export {default as EmptyHeader} from './empty-header';
+export {default as SubmitButton} from './submit-btn';

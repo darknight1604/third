@@ -8,7 +8,10 @@ import {PhotoFile} from 'react-native-vision-camera';
 import CameraView from '../components/camera-picker/camera-view';
 import {INITIAL_ROUTE_NAME, ROUTE_NAME} from '../constants';
 import {CreateNoteScreen, Home, LoadingScreen, UserProfile} from '../screens';
-import {createNavigationContainerRef} from '@react-navigation/native';
+import {
+  CommonActions,
+  createNavigationContainerRef,
+} from '@react-navigation/native';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -28,6 +31,24 @@ export function navigate<RouteName extends keyof RootStackParamList>(
   if (navigationRef.isReady()) {
     (navigationRef.navigate as any)(name, params);
   }
+}
+
+export function popUntil(routeName: string) {
+  navigationRef.dispatch(state => {
+    const routes = [...state.routes];
+    let index = routes.findIndex(r => r.name === routeName);
+
+    if (index === -1) {
+      console.warn(`Route "${routeName}" not found in the stack`);
+      return CommonActions.goBack(); // fallback
+    }
+
+    return CommonActions.reset({
+      ...state,
+      routes: routes.slice(0, index + 1), // keep routes up to the target
+      index: index,
+    });
+  });
 }
 
 export type HomeParam = NativeStackScreenProps<

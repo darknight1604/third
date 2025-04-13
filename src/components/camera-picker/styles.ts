@@ -10,6 +10,7 @@ export const styles = StyleSheet.create({
     borderRadius: DIMENSION.BORDER_RADIUS, // optional: rounded corners
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#f5f5f5',
   },
   photoFile: {width: '100%', height: '100%', resizeMode: 'contain'},
   deletePhoto: {

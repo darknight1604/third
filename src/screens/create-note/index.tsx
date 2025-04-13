@@ -1,7 +1,7 @@
 import BaseView from '@components/base-view';
 import CustomDatePicker from '@components/custom-date-picker';
-import ThemedText from '@components/themed-text';
 import {
+  SubmitButton,
   TakePictureInput,
   ThemedTextAreaInput,
   ThemedTextInput,
@@ -10,22 +10,16 @@ import {INITIAL_ROUTE_NAME, ROUTE_NAME} from '@third/constants';
 import {locales} from '@third/localizations/locale';
 import CreateNoteRequest from '@third/models/note';
 // import {createNote} from '@third/services/noteService';
+import {navigate, popUntil} from '@third/routes/Navigation';
+import {createNote} from '@third/services/noteService';
 import {formatDate} from '@third/utils/dateTimeUtil';
 import {Formik} from 'formik';
 import React, {useCallback} from 'react';
 import {View} from 'react-native';
-import {Button, TextInput} from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
 import {styles} from './styles';
-import {RootStackParamList} from '@third/routes/Navigation';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {createNote} from '@third/services/noteService';
 
-type CreateNoteScreenParam = NativeStackScreenProps<
-  RootStackParamList,
-  typeof ROUTE_NAME.CREATE_NOTE
->;
-
-const CreateNoteScreen = ({navigation}: CreateNoteScreenParam) => {
+const CreateNoteScreen = () => {
   const initialFormData: CreateNoteRequest = {
     note: '',
     value: '',
@@ -33,10 +27,10 @@ const CreateNoteScreen = ({navigation}: CreateNoteScreenParam) => {
     createdDate: formatDate(new Date()),
   };
   const onSubmit = (values: CreateNoteRequest) => {
-    navigation.navigate(ROUTE_NAME.LOADING, {
+    navigate(ROUTE_NAME.LOADING, {
       onPost: () => {
         createNote(values, () => {
-          navigation.navigate(INITIAL_ROUTE_NAME);
+          popUntil(INITIAL_ROUTE_NAME);
         });
       },
     });
@@ -67,32 +61,35 @@ const CreateNoteScreen = ({navigation}: CreateNoteScreenParam) => {
           handleSubmit,
           // isSubmitting,
         }) => (
-          <View style={styles.container}>
-            <CustomDatePicker label={locales.createDate} name="createdDate" />
-            <ThemedTextInput
-              label={locales.valueInput}
-              error={!!errors.value}
-              errorMsg={errors.value}
-              onChangeText={handleChange('value')}
-              value={values.value}
-              placeholder={locales.valueInputPlaceholder}
-              isRequired
-              keyboardType="numeric"
-              right={<TextInput.Icon icon="chart-line-variant" />}
+          <View style={styles.layout}>
+            <View style={styles.container}>
+              <CustomDatePicker label={locales.createDate} name="createdDate" />
+              <ThemedTextInput
+                label={locales.valueInput}
+                error={!!errors.value}
+                errorMsg={errors.value}
+                onChangeText={handleChange('value')}
+                value={values.value}
+                placeholder={locales.valueInputPlaceholder}
+                isRequired
+                keyboardType="numeric"
+                right={<TextInput.Icon icon="chart-line-variant" />}
+              />
+              <ThemedTextAreaInput
+                label={locales.note}
+                error={!!errors.note}
+                errorMsg={errors.note}
+                onChangeText={handleChange('note')}
+                value={values.note}
+                placeholder={locales.note}
+                right={<TextInput.Icon icon="book-open-variant" />}
+              />
+              <TakePictureInput label="Upload" name="imageUrl" />
+            </View>
+            <SubmitButton
+              onSubmit={() => handleSubmit()}
+              label={locales.create}
             />
-            <ThemedTextAreaInput
-              label={locales.note}
-              error={!!errors.note}
-              errorMsg={errors.note}
-              onChangeText={handleChange('note')}
-              value={values.note}
-              placeholder={locales.note}
-              right={<TextInput.Icon icon="book-open-variant" />}
-            />
-            <TakePictureInput label="Upload" name="imageUrl" />
-            <Button onPress={() => handleSubmit()}>
-              <ThemedText>{locales.create}</ThemedText>
-            </Button>
           </View>
         )}
       </Formik>
