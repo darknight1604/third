@@ -15,7 +15,13 @@ import {createNote} from '@third/services/noteService';
 import {formatDate} from '@third/utils/dateTimeUtil';
 import {Formik} from 'formik';
 import React, {useCallback} from 'react';
-import {Keyboard, ScrollView, View} from 'react-native';
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  View,
+} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import {styles} from './styles';
 
@@ -61,40 +67,47 @@ const CreateNoteScreen = () => {
           handleSubmit,
           // isSubmitting,
         }) => (
-          <View style={styles.layout}>
-            <ScrollView style={styles.container}>
-              <CustomDatePicker label={locales.createDate} name="createdDate" />
-              <ThemedTextInput
-                label={locales.valueInput}
-                error={!!errors.value}
-                errorMsg={errors.value}
-                onChangeText={handleChange('value')}
-                value={values.value}
-                placeholder={locales.valueInputPlaceholder}
-                isRequired
-                keyboardType="numeric"
-                right={<TextInput.Icon icon="chart-line-variant" />}
-                returnKeyType="done"
-                onSubmitEditing={Keyboard.dismiss}
+          <KeyboardAvoidingView
+            style={styles.keyboardAvoidView}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+            <View style={styles.layout}>
+              <ScrollView style={styles.container}>
+                <CustomDatePicker
+                  label={locales.createDate}
+                  name="createdDate"
+                />
+                <ThemedTextInput
+                  label={locales.valueInput}
+                  error={!!errors.value}
+                  errorMsg={errors.value}
+                  onChangeText={handleChange('value')}
+                  value={values.value}
+                  placeholder={locales.valueInputPlaceholder}
+                  isRequired
+                  keyboardType="numeric"
+                  right={<TextInput.Icon icon="chart-line-variant" />}
+                  returnKeyType="done"
+                  onSubmitEditing={Keyboard.dismiss}
+                />
+                <ThemedTextAreaInput
+                  label={locales.note}
+                  error={!!errors.note}
+                  errorMsg={errors.note}
+                  onChangeText={handleChange('note')}
+                  value={values.note}
+                  placeholder={locales.note}
+                  returnKeyType="done"
+                  onSubmitEditing={Keyboard.dismiss}
+                  right={<TextInput.Icon icon="book-open-variant" />}
+                />
+                <TakePictureInput label="Upload" name="imageUrl" />
+              </ScrollView>
+              <SubmitButton
+                onSubmit={() => handleSubmit()}
+                label={locales.create}
               />
-              <ThemedTextAreaInput
-                label={locales.note}
-                error={!!errors.note}
-                errorMsg={errors.note}
-                onChangeText={handleChange('note')}
-                value={values.note}
-                placeholder={locales.note}
-                returnKeyType="done"
-                onSubmitEditing={Keyboard.dismiss}
-                right={<TextInput.Icon icon="book-open-variant" />}
-              />
-              <TakePictureInput label="Upload" name="imageUrl" />
-            </ScrollView>
-            <SubmitButton
-              onSubmit={() => handleSubmit()}
-              label={locales.create}
-            />
-          </View>
+            </View>
+          </KeyboardAvoidingView>
         )}
       </Formik>
     </BaseView>
