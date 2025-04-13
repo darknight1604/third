@@ -15,7 +15,7 @@ import {createNote} from '@third/services/noteService';
 import {formatDate} from '@third/utils/dateTimeUtil';
 import {Formik} from 'formik';
 import React, {useCallback} from 'react';
-import {View} from 'react-native';
+import {Keyboard, ScrollView, View} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import {styles} from './styles';
 
@@ -62,7 +62,7 @@ const CreateNoteScreen = () => {
           // isSubmitting,
         }) => (
           <View style={styles.layout}>
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
               <CustomDatePicker label={locales.createDate} name="createdDate" />
               <ThemedTextInput
                 label={locales.valueInput}
@@ -74,6 +74,8 @@ const CreateNoteScreen = () => {
                 isRequired
                 keyboardType="numeric"
                 right={<TextInput.Icon icon="chart-line-variant" />}
+                returnKeyType="done"
+                onSubmitEditing={Keyboard.dismiss}
               />
               <ThemedTextAreaInput
                 label={locales.note}
@@ -82,10 +84,12 @@ const CreateNoteScreen = () => {
                 onChangeText={handleChange('note')}
                 value={values.note}
                 placeholder={locales.note}
+                returnKeyType="done"
+                onSubmitEditing={Keyboard.dismiss}
                 right={<TextInput.Icon icon="book-open-variant" />}
               />
               <TakePictureInput label="Upload" name="imageUrl" />
-            </View>
+            </ScrollView>
             <SubmitButton
               onSubmit={() => handleSubmit()}
               label={locales.create}
