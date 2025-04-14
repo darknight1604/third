@@ -7,6 +7,7 @@ import {
 import {showSnackbar} from '@third/components/global-snackbar/GlobalSnackbarService';
 import CreateNoteRequest from '@third/models/note';
 import {uploadImage} from './fileUploader';
+import dayjs from 'dayjs';
 
 const db = firebase.firestore();
 
@@ -43,7 +44,10 @@ const postNote = (params: CreateNoteRequest, onPost?: () => void) => {
     // Step 2: Then, point to 'note' collection under that doc
     const noteCollectionRef = collection(thirdDevDocRef, 'note');
 
-    addDoc(noteCollectionRef, params).then(() => {
+    addDoc(noteCollectionRef, {
+      ...params,
+      createdDateMiliseconds: dayjs(params.createdDate).valueOf(),
+    }).then(() => {
       showSnackbar('Your request has been successfully');
       onPost?.();
     });
