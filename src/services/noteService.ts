@@ -3,13 +3,41 @@ import {
   collection,
   doc,
   firebase,
+  getDocs,
+  query,
+  where,
 } from '@react-native-firebase/firestore';
 import {showSnackbar} from '@third/components/global-snackbar/GlobalSnackbarService';
-import CreateNoteRequest from '@third/models/note';
 import {uploadImage} from './fileUploader';
 import dayjs from 'dayjs';
+import {
+  CreateNoteRequest,
+  IGetListNoteRequest,
+  INote,
+} from '@third/models/note';
 
 const db = firebase.firestore();
+
+export const getListNote = async (queryParams: IGetListNoteRequest) => {
+  const listNote: INote[] = [];
+  if (!queryParams.createdDateFrom || !queryParams.createdDateTo) {
+    return listNote;
+  }
+  const noteCollectionRef = getCollection();
+
+  const q = query(
+    noteCollectionRef,
+    where('createdDate', '>=', queryParams.createdDateFrom),
+    where('createdDate', '<=', queryParams.createdDateTo),
+  );
+
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach(document => {
+    listNote.push({...document.data(), id: document.id});
+  });
+
+  return listNote;
+};
 
 // If exist imageUrl, upload image then get image url create note. Otherwise, only create note
 export const createNote = (params: CreateNoteRequest, onPost?: () => void) => {
@@ -38,15 +66,11 @@ export const createNote = (params: CreateNoteRequest, onPost?: () => void) => {
 // Just simple create note document with params
 const postNote = (params: CreateNoteRequest, onPost?: () => void) => {
   try {
-    // Step 1: Point to the document 'dev' inside 'third'
-    const thirdDevDocRef = doc(db, 'third', 'dev');
-
-    // Step 2: Then, point to 'note' collection under that doc
-    const noteCollectionRef = collection(thirdDevDocRef, 'note');
+    const noteCollectionRef = getCollection();
 
     addDoc(noteCollectionRef, {
       ...params,
-      createdDateMiliseconds: dayjs(params.createdDate).valueOf(),
+      createdDate: dayjs(params.createdDate).valueOf(),
     }).then(() => {
       showSnackbar('Your request has been successfully');
       onPost?.();
@@ -55,4 +79,12 @@ const postNote = (params: CreateNoteRequest, onPost?: () => void) => {
     console.error('Firebase error:', error);
     showSnackbar('Your request has been failed');
   }
+};
+
+const getCollection = () => {
+  // Step 1: Point to the document 'dev' inside 'third'
+  const thirdDevDocRef = doc(db, 'third', 'dev');
+
+  // Step 2: Then, point to 'note' collection under that doc
+  return collection(thirdDevDocRef, 'note');
 };

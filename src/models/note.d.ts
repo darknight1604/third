@@ -1,10 +1,15 @@
-interface CreateNoteRequest {
+export interface INote {
+  id?: string;
   value?: string;
   note?: string;
   createdDate?: string;
-  createdDateMiliseconds?: number;
   imageUrl?: string;
   imageRefPath?: string;
 }
 
-export default CreateNoteRequest;
+export interface CreateNoteRequest extends Omit<INote, 'id'> {}
+
+export interface IGetListNoteRequest {
+  createdDateFrom?: number;
+  createdDateTo?: number;
+}

@@ -8,8 +8,6 @@ import {
 } from '@third/components';
 import {INITIAL_ROUTE_NAME, ROUTE_NAME} from '@third/constants';
 import {locales} from '@third/localizations/locale';
-import CreateNoteRequest from '@third/models/note';
-// import {createNote} from '@third/services/noteService';
 import {navigate, popUntil} from '@third/routes/Navigation';
 import {createNote} from '@third/services/noteService';
 import {formatDate} from '@third/utils/dateTimeUtil';
@@ -24,6 +22,7 @@ import {
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
 import {styles} from './styles';
+import {CreateNoteRequest} from '@third/models/note';
 
 const CreateNoteScreen = () => {
   const initialFormData: CreateNoteRequest = {
