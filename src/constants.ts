@@ -17,3 +17,6 @@ export const DIMENSION = {
   COMPONENT_GAP: 4,
   BORDER_RADIUS: 8,
 };
+
+// Unit = minute
+export const DURATION_FETCH_NOTE = 15;

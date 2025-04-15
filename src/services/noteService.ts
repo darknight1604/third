@@ -8,7 +8,7 @@ import {
   where,
 } from '@react-native-firebase/firestore';
 import {showSnackbar} from '@third/components/global-snackbar/GlobalSnackbarService';
-import {DATE_TIME_FORMAT} from '@third/constants';
+import {DATE_TIME_FORMAT, DURATION_FETCH_NOTE} from '@third/constants';
 import {
   CreateNoteRequest,
   IGetListNoteRequest,
@@ -17,10 +17,18 @@ import {
 import dayjs from 'dayjs';
 import {uploadImage} from './fileUploader';
 
+const listNote: INote[] = [];
+let fetchTime: dayjs.Dayjs | undefined;
 const db = firebase.firestore();
 
 export const getListNote = async (queryParams: IGetListNoteRequest) => {
-  const listNote: INote[] = [];
+  if (fetchTime) {
+    const now = dayjs();
+    const diffInMinutes = now.diff(fetchTime, 'minute');
+    if (diffInMinutes < DURATION_FETCH_NOTE) {
+      return listNote;
+    }
+  }
   if (!queryParams.createdDateFrom || !queryParams.createdDateTo) {
     return listNote;
   }
@@ -37,6 +45,7 @@ export const getListNote = async (queryParams: IGetListNoteRequest) => {
     listNote.push({...document.data(), id: document.id});
   });
 
+  fetchTime = dayjs();
   return listNote;
 };
 
