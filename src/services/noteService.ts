@@ -8,13 +8,14 @@ import {
   where,
 } from '@react-native-firebase/firestore';
 import {showSnackbar} from '@third/components/global-snackbar/GlobalSnackbarService';
-import {uploadImage} from './fileUploader';
-import dayjs from 'dayjs';
+import {DATE_TIME_FORMAT} from '@third/constants';
 import {
   CreateNoteRequest,
   IGetListNoteRequest,
   INote,
 } from '@third/models/note';
+import dayjs from 'dayjs';
+import {uploadImage} from './fileUploader';
 
 const db = firebase.firestore();
 
@@ -67,10 +68,12 @@ export const createNote = (params: CreateNoteRequest, onPost?: () => void) => {
 const postNote = (params: CreateNoteRequest, onPost?: () => void) => {
   try {
     const noteCollectionRef = getCollection();
+    const createdDate = dayjs(params.createdDate);
 
     addDoc(noteCollectionRef, {
       ...params,
-      createdDate: dayjs(params.createdDate).valueOf(),
+      date: createdDate.format(DATE_TIME_FORMAT.DATE),
+      createdDate: createdDate.valueOf(),
     }).then(() => {
       showSnackbar('Your request has been successfully');
       onPost?.();

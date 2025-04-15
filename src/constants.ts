@@ -10,6 +10,7 @@ export const INITIAL_ROUTE_NAME = ROUTE_NAME.HOME;
 
 export const DATE_TIME_FORMAT = {
   FORMAT1: 'YYYY-MM-DD HH:mm:ss',
+  DATE: 'YYYY-MM-DD',
 };
 
 export const DIMENSION = {
