@@ -13,3 +13,5 @@ export {default as WrapperInput} from './wrapper-input';
 export {default as TakePictureInput} from './take-picture-input';
 export {default as EmptyHeader} from './empty-header';
 export {default as SubmitButton} from './submit-btn';
+export {default as Row} from './row';
+export {default as Column} from './column';
