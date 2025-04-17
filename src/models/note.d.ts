@@ -14,3 +14,17 @@ export interface IGetListNoteRequest {
   createdDateFrom?: number;
   createdDateTo?: number;
 }
+
+export interface INoteValueByDate {
+  date: string;
+  notes: INote[];
+}
+
+export interface IChartDataByMonth {
+  datas?: INoteValueByDate[];
+  month?: number;
+}
+export interface IGetChartDateRequest {
+  fromDate?: number;
+  toDate?: number;
+}

@@ -7,11 +7,18 @@ import {useCallback} from 'react';
 import {PhotoFile} from 'react-native-vision-camera';
 import CameraView from '../components/camera-picker/camera-view';
 import {INITIAL_ROUTE_NAME, ROUTE_NAME} from '../constants';
-import {CreateNoteScreen, Home, LoadingScreen, UserProfile} from '../screens';
+import {
+  CreateNoteScreen,
+  Home,
+  LoadingScreen,
+  RangeDatePickerScreen,
+  UserProfile,
+} from '../screens';
 import {
   CommonActions,
   createNavigationContainerRef,
 } from '@react-navigation/native';
+import {IRangeDate} from '@third/models/common';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -19,6 +26,7 @@ export type RootStackParamList = {
   CreateNote: undefined;
   CameraView: {onPost: (photoFile: PhotoFile | undefined) => void};
   Loading: {onPost?: () => void};
+  RangeDatePicker: {onConfirm?: (rangeDate?: IRangeDate) => void};
 };
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -76,6 +84,10 @@ const Navigation = () => {
         name={ROUTE_NAME.LOADING}
         component={LoadingScreen}
         options={{header: emptyHeader}}
+      />
+      <Stack.Screen
+        name={ROUTE_NAME.RANGE_DATE_PICKER}
+        component={RangeDatePickerScreen}
       />
     </Stack.Navigator>
   );

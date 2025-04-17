@@ -9,6 +9,7 @@ export const locales = new LocalizedStrings({
     valueInput: 'Value',
     valueInputPlaceholder: 'Type your value',
     requiredField: 'This is required field',
+    confirmLabel: 'Confirm',
   },
   vi: {
     createNote: 'Thêm chỉ số',
@@ -18,5 +19,6 @@ export const locales = new LocalizedStrings({
     valueInput: 'Chỉ số',
     requiredField: 'Đây là trường bắt buộc',
     valueInputPlaceholder: 'Nhập giá trị',
+    confirmLabel: 'Xác nhận',
   },
 });

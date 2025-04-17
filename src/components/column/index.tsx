@@ -1,7 +1,7 @@
 import {FlexAlignType, View, ViewProps} from 'react-native';
 import {styles} from './styles';
 
-interface IRowProps extends ViewProps {
+interface IColumnProps extends ViewProps {
   mainAxisAlignment?:
     | 'flex-start'
     | 'flex-end'
@@ -18,7 +18,7 @@ const Column = ({
   mainAxisAlignment,
   crossAxisAlignment,
   style,
-}: IRowProps) => {
+}: IColumnProps) => {
   return (
     <View
       style={[

@@ -11,15 +11,45 @@ import {showSnackbar} from '@third/components/global-snackbar/GlobalSnackbarServ
 import {DATE_TIME_FORMAT, DURATION_FETCH_NOTE} from '@third/constants';
 import {
   CreateNoteRequest,
+  IChartDataByMonth,
+  IGetChartDateRequest,
   IGetListNoteRequest,
   INote,
+  INoteValueByDate,
 } from '@third/models/note';
 import dayjs from 'dayjs';
 import {uploadImage} from './fileUploader';
+import {formatDate, getDatesInRange} from '@third/utils/dateTimeUtil';
 
 const listNote: INote[] = [];
 let fetchTime: dayjs.Dayjs | undefined;
 const db = firebase.firestore();
+
+export const getChartData = async ({
+  fromDate,
+  toDate,
+}: IGetChartDateRequest): Promise<IChartDataByMonth | undefined> => {
+  const listDate = getDatesInRange(fromDate, toDate);
+  const rawlistNote = await getListNote({
+    createdDateFrom: dayjs(fromDate).valueOf(),
+    createdDateTo: dayjs(toDate).valueOf(),
+  });
+
+  const datas = listDate.map(date => {
+    const stringFormattedDate = formatDate(date, DATE_TIME_FORMAT.DATE);
+    const filtered = rawlistNote.filter(
+      note => note.date === stringFormattedDate,
+    );
+
+    const data: INoteValueByDate = {
+      date: stringFormattedDate,
+      notes: filtered,
+    };
+    return data;
+  });
+  const result: IChartDataByMonth = {datas};
+  return result;
+};
 
 export const getListNote = async (queryParams: IGetListNoteRequest) => {
   if (fetchTime) {
