@@ -26,7 +26,11 @@ export type RootStackParamList = {
   CreateNote: undefined;
   CameraView: {onPost: (photoFile: PhotoFile | undefined) => void};
   Loading: {onPost?: () => void};
-  RangeDatePicker: {onConfirm?: (rangeDate?: IRangeDate) => void};
+  RangeDatePicker: {
+    onConfirm?: (rangeDate?: IRangeDate) => void;
+    maxRangeDuration?: number;
+    minRangeDuration?: number;
+  };
 };
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

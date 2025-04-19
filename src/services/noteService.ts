@@ -19,10 +19,12 @@ import {
 } from '@third/models/note';
 import dayjs from 'dayjs';
 import {uploadImage} from './fileUploader';
-import {formatDate, getDatesInRange} from '@third/utils/dateTimeUtil';
+import {formatDate, getDatesInRange, parse} from '@third/utils/dateTimeUtil';
+import {getStringValue} from '@third/utils/stringUtil';
 
 const listNote: INote[] = [];
 let fetchTime: dayjs.Dayjs | undefined;
+let currentQuery: IGetListNoteRequest | undefined;
 const db = firebase.firestore();
 
 export const getChartData = async ({
@@ -55,7 +57,11 @@ export const getListNote = async (queryParams: IGetListNoteRequest) => {
   if (fetchTime) {
     const now = dayjs();
     const diffInMinutes = now.diff(fetchTime, 'minute');
-    if (diffInMinutes < DURATION_FETCH_NOTE) {
+    if (
+      diffInMinutes < DURATION_FETCH_NOTE &&
+      currentQuery?.createdDateFrom === queryParams.createdDateFrom &&
+      currentQuery?.createdDateTo === queryParams.createdDateTo
+    ) {
       return listNote;
     }
   }
@@ -76,6 +82,7 @@ export const getListNote = async (queryParams: IGetListNoteRequest) => {
   });
 
   fetchTime = dayjs();
+  currentQuery = queryParams;
   return listNote;
 };
 
@@ -107,11 +114,11 @@ export const createNote = (params: CreateNoteRequest, onPost?: () => void) => {
 const postNote = (params: CreateNoteRequest, onPost?: () => void) => {
   try {
     const noteCollectionRef = getCollection();
-    const createdDate = dayjs(params.createdDate);
+    const createdDate = parse(getStringValue(params.createdDate));
 
     addDoc(noteCollectionRef, {
       ...params,
-      date: createdDate.format(DATE_TIME_FORMAT.DATE),
+      date: formatDate(createdDate, DATE_TIME_FORMAT.DATE),
       createdDate: createdDate.valueOf(),
     }).then(() => {
       showSnackbar('Your request has been successfully');

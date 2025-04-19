@@ -1,8 +1,20 @@
 import dayjs from 'dayjs';
 import {DATE_TIME_FORMAT} from '../constants';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import isoWeek from 'dayjs/plugin/isoWeek';
+
+dayjs.extend(isoWeek);
+dayjs.extend(customParseFormat);
+
+export const getCurrentWeekRange = () => {
+  const now = dayjs();
+  const startDate = now.startOf('isoWeek'); // Monday
+  const endDate = now.endOf('isoWeek'); // Sunday
+  return {startDate, endDate};
+};
 
 export function formatDate(
-  date: Date,
+  date: Date | number | string | undefined,
   pattern: string = DATE_TIME_FORMAT.FORMAT1,
 ): string {
   return dayjs(date).format(pattern);

@@ -1,28 +1,28 @@
-import {useFocusEffect} from '@react-navigation/native';
-import {Column, Row} from '@third/components';
+import {Row} from '@third/components';
 import {IRangeDate} from '@third/models/common';
-import {IChartDataByMonth} from '@third/models/note';
-import {getChartData} from '@third/services/noteService';
-import {formatDate, getStartAndEndOfMonth} from '@third/utils/dateTimeUtil';
-import {useCallback, useMemo, useState} from 'react';
-import {View} from 'react-native';
+import {formatDate, getCurrentWeekRange} from '@third/utils/dateTimeUtil';
+import {useMemo, useState} from 'react';
 import {FloatingAction} from 'react-native-floating-action';
-import {Text} from 'react-native-paper';
 import BaseView from '../../components/base-view';
-import {DATE_TIME_FORMAT, ROUTE_NAME} from '../../constants';
+import {
+  DATE_TIME_FORMAT,
+  RANGE_DURATION_DATE_PICKER,
+  ROUTE_NAME,
+} from '../../constants';
 import {HomeParam} from '../../routes/Navigation';
 import CalendarTextButton from './components/calendar-text-button';
-import Loading from './components/loading';
+import TrackingLineChart from './components/tracking-line-chart';
 import {styles} from './styles';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {useTheme} from 'react-native-paper';
 
 const Home = ({navigation}: HomeParam) => {
-  const {startDate, endDate} = getStartAndEndOfMonth();
-  const [loading, setLoading] = useState(true);
+  const {colors} = useTheme();
+  const {startDate, endDate} = getCurrentWeekRange();
   const [rangeDate, setRangeDate] = useState<IRangeDate>({
-    fromDate: new Date(startDate),
-    toDate: new Date(endDate),
+    fromDate: startDate.toDate(),
+    toDate: endDate.toDate(),
   });
-  const [chartData, setChartData] = useState<IChartDataByMonth | undefined>();
 
   const onPressFab = () => {
     navigation.navigate(ROUTE_NAME.CREATE_NOTE);
@@ -31,6 +31,8 @@ const Home = ({navigation}: HomeParam) => {
   const openRangeDatePickerScreen = () => {
     navigation.navigate(ROUTE_NAME.RANGE_DATE_PICKER, {
       onConfirm: onConfirmRangeDate,
+      maxRangeDuration: RANGE_DURATION_DATE_PICKER.max,
+      minRangeDuration: RANGE_DURATION_DATE_PICKER.min,
     });
   };
 
@@ -53,46 +55,27 @@ const Home = ({navigation}: HomeParam) => {
     ].join(' - ');
   }, [rangeDate.fromDate, rangeDate.toDate]);
 
-  useFocusEffect(
-    useCallback(() => {
-      setLoading(true);
-
-      const fetchData = async () => {
-        const result = await getChartData({
-          fromDate: startDate,
-          toDate: endDate,
-        });
-        if (!result) {
-          return;
-        }
-        setLoading(false);
-        setChartData(result);
-      };
-      fetchData();
-    }, [endDate, startDate]),
-  );
-
-  if (loading) {
-    return <Loading />;
-  }
-
   return (
     <BaseView style={styles.container}>
-      <Row mainAxisAlignment="flex-end">
+      <Row mainAxisAlignment="flex-end" style={styles.calendarRow}>
+        <Icon
+          name="calendar"
+          size={22}
+          color={colors.primary}
+          style={styles.iconCalendar}
+        />
+
         <CalendarTextButton
           label={filterRangeDateLabel}
           onPress={openRangeDatePickerScreen}
         />
       </Row>
-      <View>
-        {chartData?.datas?.map(data => (
-          <Column>
-            <Text>{data.date}</Text>
-            <Text>{data.notes.map(note => note.value)}</Text>
-          </Column>
-        ))}
-      </View>
-      <FloatingAction showBackground={false} onPressMain={onPressFab} />
+      <TrackingLineChart rangeDate={rangeDate} />
+      <FloatingAction
+        showBackground={false}
+        onPressMain={onPressFab}
+        color={colors.primary}
+      />
     </BaseView>
   );
 };

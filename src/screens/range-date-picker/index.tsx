@@ -21,7 +21,7 @@ export type ScreenParam = NativeStackScreenProps<
 const RangeDatePickerScreen = ({navigation, route}: ScreenParam) => {
   const {colors} = useTheme();
   const [rangeDate, setRangeDate] = useState<IRangeDate>({});
-  const {onConfirm} = route.params;
+  const {onConfirm, maxRangeDuration, minRangeDuration} = route.params;
 
   const onSelectDate: DateChangedCallback = (
     date: Date | undefined | null,
@@ -53,6 +53,8 @@ const RangeDatePickerScreen = ({navigation, route}: ScreenParam) => {
             onDateChange={onSelectDate}
             selectedDayColor={colors.primary}
             selectedDayTextColor={colors.onPrimary}
+            maxRangeDuration={maxRangeDuration}
+            minRangeDuration={minRangeDuration}
           />
         </View>
         <View style={styles.submitBtn}>

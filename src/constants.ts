@@ -10,9 +10,10 @@ export const ROUTE_NAME = {
 export const INITIAL_ROUTE_NAME = ROUTE_NAME.HOME;
 
 export const DATE_TIME_FORMAT = {
-  FORMAT1: 'YYYY-MM-DD HH:mm:ss',
-  DATE: 'YYYY-MM-DD',
-  DATE2: 'YYYY/MM/DD',
+  FORMAT1: 'DD-MM-YYYY HH:mm:ss',
+  DATE: 'DD-MM-YYYY',
+  DATE2: 'DD/MM/YYYY',
+  DATE3: 'DD/MM',
   EMPTY_DATE: '----/--/--',
 };
 
@@ -23,3 +24,5 @@ export const DIMENSION = {
 
 // Unit = minute
 export const DURATION_FETCH_NOTE = 15;
+
+export const RANGE_DURATION_DATE_PICKER = {max: 6, min: 1};
