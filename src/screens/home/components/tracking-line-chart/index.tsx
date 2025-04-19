@@ -28,8 +28,6 @@ const TrackingLineChart = ({rangeDate}: ITrackingLineChartProps) => {
   const [chartData, setChartData] = useState<IChartDataByMonth | undefined>();
 
   const chartConfig: AbstractChartConfig = {
-    backgroundGradientFrom: '#FFFFFF',
-    backgroundGradientTo: '#FFFFFF',
     color: (opacity = 1) => addOpacityToHex(theme.colors.onBackground, opacity),
   };
 
@@ -112,6 +110,7 @@ const TrackingLineChart = ({rangeDate}: ITrackingLineChartProps) => {
         height={chartHeight}
         chartConfig={chartConfig}
         withInnerLines={false}
+        transparent
         style={{
           ...styles.chart,
           borderRadius: theme.roundness,
