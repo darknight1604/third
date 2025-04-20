@@ -6,6 +6,7 @@ export interface INote {
   imageUrl?: string;
   imageRefPath?: string;
   date?: string;
+  isLocal?: boolean;
 }
 
 export interface CreateNoteRequest extends Omit<INote, 'id'> {}

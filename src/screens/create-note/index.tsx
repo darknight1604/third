@@ -9,7 +9,7 @@ import {
 import {INITIAL_ROUTE_NAME, ROUTE_NAME} from '@third/constants';
 import {locales} from '@third/localizations/locale';
 import {navigate, popUntil} from '@third/routes/Navigation';
-import {createNote} from '@third/services/noteService';
+// import {createNote} from '@third/services/noteService';
 import {formatDate} from '@third/utils/dateTimeUtil';
 import {Formik} from 'formik';
 import React, {useCallback} from 'react';
@@ -23,6 +23,7 @@ import {
 import {TextInput} from 'react-native-paper';
 import {styles} from './styles';
 import {CreateNoteRequest} from '@third/models/note';
+import {NoteService} from '@third/services/noteService';
 
 const CreateNoteScreen = () => {
   const initialFormData: CreateNoteRequest = {
@@ -34,7 +35,7 @@ const CreateNoteScreen = () => {
   const onSubmit = (values: CreateNoteRequest) => {
     navigate(ROUTE_NAME.LOADING, {
       onPost: () => {
-        createNote(values, () => {
+        NoteService.getInstance().createNote(values, () => {
           popUntil(INITIAL_ROUTE_NAME);
         });
       },

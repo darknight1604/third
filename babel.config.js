@@ -11,6 +11,8 @@ module.exports = {
           '@utils': './src/utils',
           '@localizations': './src/localizations',
           '@lotties': './src/assets/lotties',
+          '@repositories': './src/assets/repositories',
+          '@services': './src/assets/services',
         },
       },
     ],

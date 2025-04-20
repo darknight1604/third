@@ -18,6 +18,12 @@
       "@lotties/*": [
         "src/assets/lotties/*"
       ],
+      "@repositories/*": [
+        "src/repositories/*"
+      ],
+      "@services/*": [
+        "src/services/*"
+      ],
     }
   }
 }

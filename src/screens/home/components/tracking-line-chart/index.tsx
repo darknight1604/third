@@ -2,7 +2,7 @@ import {DATE_TIME_FORMAT} from '@third/constants';
 import {locales} from '@third/localizations/locale';
 import {IRangeDate} from '@third/models/common';
 import {IChartDataByMonth} from '@third/models/note';
-import {getChartData} from '@third/services/noteService';
+import {NoteService} from '@third/services/noteService';
 import {addOpacityToHex} from '@third/utils/colorUtil';
 import {formatDate, parse} from '@third/utils/dateTimeUtil';
 import dayjs from 'dayjs';
@@ -71,7 +71,7 @@ const TrackingLineChart = ({rangeDate}: ITrackingLineChartProps) => {
     }
     const fetchData = async () => {
       setLoading(true);
-      const result = await getChartData({
+      const result = await NoteService.getInstance().getChartData({
         fromDate: dayjs(rangeDate.fromDate).valueOf(),
         toDate: dayjs(rangeDate.toDate).valueOf(),
       });
