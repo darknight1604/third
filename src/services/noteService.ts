@@ -14,13 +14,12 @@ import dayjs from 'dayjs';
 import BaseService from './baseService';
 import {uploadImage} from './fileUploader';
 import {NoteLocalRepository, NoteRemoteRepository} from '@third/repositories';
+import {ServiceSingletonFactory} from './serviceSingletonFactory';
 
 export class NoteService extends BaseService<INote> {
   listNote: INote[];
   fetchTime: dayjs.Dayjs | undefined;
   currentQuery: IGetListNoteRequest | undefined;
-
-  private static instance: NoteService;
 
   private constructor() {
     super(
@@ -31,10 +30,10 @@ export class NoteService extends BaseService<INote> {
   }
 
   static getInstance(): NoteService {
-    if (!NoteService.instance) {
-      NoteService.instance = new NoteService();
-    }
-    return NoteService.instance;
+    return ServiceSingletonFactory.getInstance(
+      'NoteService',
+      () => new NoteService(),
+    );
   }
 
   async getChartData({

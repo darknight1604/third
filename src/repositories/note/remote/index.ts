@@ -9,13 +9,17 @@ import {
 } from '@react-native-firebase/firestore';
 import {IGetListNoteRequest, INote} from '@third/models/note';
 import {IReposioty} from '@third/repositories/iRepository';
+import {RepoSingletonFactory} from '@third/repositories/repoSingletonFactory';
 
 const db = firebase.firestore();
 
 class RemoteRepository implements IReposioty<INote> {
-  private static instance: RemoteRepository;
-
-  private constructor() {}
+  static getInstance(): RemoteRepository {
+    return RepoSingletonFactory.getInstance(
+      'NoteRemoteRepository',
+      () => new RemoteRepository(),
+    );
+  }
 
   async getList(params: IGetListNoteRequest): Promise<INote[]> {
     const noteCollectionRef = this.getCollection();
@@ -32,13 +36,6 @@ class RemoteRepository implements IReposioty<INote> {
     });
 
     return result;
-  }
-
-  static getInstance(): RemoteRepository {
-    if (!RemoteRepository.instance) {
-      RemoteRepository.instance = new RemoteRepository();
-    }
-    return RemoteRepository.instance;
   }
 
   async save(params: unknown, onPost?: () => void) {

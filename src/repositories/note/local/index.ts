@@ -1,16 +1,13 @@
 import {INote} from '@third/models/note';
 import {IReposioty} from '@third/repositories/iRepository';
+import {RepoSingletonFactory} from '@third/repositories/repoSingletonFactory';
 
 class LocalRepository implements IReposioty<INote> {
-  private static instance: LocalRepository;
-
-  private constructor() {}
-
   static getInstance(): LocalRepository {
-    if (!LocalRepository.instance) {
-      LocalRepository.instance = new LocalRepository();
-    }
-    return LocalRepository.instance;
+    return RepoSingletonFactory.getInstance(
+      'NoteLocalRepository',
+      () => new LocalRepository(),
+    );
   }
 
   getList(_params: unknown): Promise<INote[]> {
