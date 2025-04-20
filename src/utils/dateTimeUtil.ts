@@ -39,7 +39,7 @@ export const getDatesInRange = (fromDate?: number, toDate?: number): Date[] => {
   }
 
   const start = dayjs(fromDate).startOf('day');
-  const end = dayjs(toDate).startOf('day');
+  const end = dayjs(toDate).endOf('day');
 
   const dates: Date[] = [];
   let current = start;

@@ -22,7 +22,7 @@ import {uploadImage} from './fileUploader';
 import {formatDate, getDatesInRange, parse} from '@third/utils/dateTimeUtil';
 import {getStringValue} from '@third/utils/stringUtil';
 
-const listNote: INote[] = [];
+let listNote: INote[] = [];
 let fetchTime: dayjs.Dayjs | undefined;
 let currentQuery: IGetListNoteRequest | undefined;
 const db = firebase.firestore();
@@ -75,15 +75,16 @@ export const getListNote = async (queryParams: IGetListNoteRequest) => {
     where('createdDate', '>=', queryParams.createdDateFrom),
     where('createdDate', '<=', queryParams.createdDateTo),
   );
-
+  const result: INote[] = [];
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach(document => {
-    listNote.push({...document.data(), id: document.id});
+    result.push({...document.data(), id: document.id});
   });
 
   fetchTime = dayjs();
   currentQuery = queryParams;
-  return listNote;
+  listNote = [...result];
+  return result;
 };
 
 // If exist imageUrl, upload image then get image url create note. Otherwise, only create note

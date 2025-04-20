@@ -12,6 +12,7 @@ import {styles} from './styles';
 import {ROUTE_NAME} from '@third/constants';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '@third/routes/Navigation';
+import dayjs from 'dayjs';
 
 export type ScreenParam = NativeStackScreenProps<
   RootStackParamList,
@@ -32,10 +33,13 @@ const RangeDatePickerScreen = ({navigation, route}: ScreenParam) => {
     }
 
     if (type === 'START_DATE') {
-      setRangeDate({...rangeDate, fromDate: date});
+      setRangeDate({
+        ...rangeDate,
+        fromDate: dayjs(date).startOf('day').toDate(),
+      });
       return;
     }
-    setRangeDate({...rangeDate, toDate: date});
+    setRangeDate({...rangeDate, toDate: dayjs(date).endOf('day').toDate()});
   };
 
   const handleOnConfirm = () => {
